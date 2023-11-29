@@ -15,12 +15,6 @@ RUN echo '<b>another file</b>' > another.html
 
 # This line copies the repository to /root in the runner
 COPY . .
-RUN apt-get install python3-pip -y
+RUN apt install python3-pip
 RUN pip3 install -r requirements.txt
-RUN ls
-
-# Expose the webserver in the staging server as a secure link.
-# Whenever someone clicks the link, we'll load this staging server and forward
-# their requests to it.
-RUN BACKGROUND python3 -m http.server 80
-EXPOSE WEBSITE http://localhost:80
+RUN pytest test_app.py
